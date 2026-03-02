@@ -1,35 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import "./styles/theme.css";
+import { AuthProvider, useAuth } from "./context/AuthContext.jsx";
+import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Login from "./pages/Login.jsx";
+import AdminDashboard from "./pages/dashboards/AdminDashboard.jsx";
+import ClientDashboard from "./pages/dashboards/ClientDashboard.jsx";
+import ProviderDashboard from "./pages/dashboards/ProviderDashboard.jsx";
+import DiscoverProviders from "./pages/client/DiscoverProviders.jsx";
+import Conversations from "./pages/client/Conversations.jsx";
+import IncomingRequests from "./pages/provider/IncomingRequests.jsx";
+import UsersModeration from "./pages/admin/UsersModeration.jsx";
+import ReviewsModeration from "./pages/admin/ReviewsModeration.jsx";
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+function HomeRedirect() {
+  const { role, token } = useAuth();
+  if (!token) return <Navigate to="/login" replace />;
+  if (role === "admin") return <Navigate to="/admin" replace />;
+  if (role === "provider") return <Navigate to="/provider" replace />;
+  return <Navigate to="/client" replace />;
 }
 
-export default App
+export default function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomeRedirect/>} />
+          <Route path="/login" element={<Login/>} />
+
+          <Route path="/client" element={
+            <ProtectedRoute roles={["client"]}><ClientDashboard/></ProtectedRoute>
+          } />
+          <Route path="/client/discover" element={
+            <ProtectedRoute roles={["client"]}><DiscoverProviders/></ProtectedRoute>
+          } />
+          <Route path="/client/conversations" element={
+            <ProtectedRoute roles={["client"]}><Conversations/></ProtectedRoute>
+          } />
+
+          <Route path="/provider" element={
+            <ProtectedRoute roles={["provider"]}><ProviderDashboard/></ProtectedRoute>
+          } />
+          <Route path="/provider/requests" element={
+            <ProtectedRoute roles={["provider"]}><IncomingRequests/></ProtectedRoute>
+          } />
+
+          <Route path="/admin" element={
+            <ProtectedRoute roles={["admin"]}><AdminDashboard/></ProtectedRoute>
+          } />
+          <Route path="/admin/users" element={
+            <ProtectedRoute roles={["admin"]}><UsersModeration/></ProtectedRoute>
+          } />
+          <Route path="/admin/reviews" element={
+            <ProtectedRoute roles={["admin"]}><ReviewsModeration/></ProtectedRoute>
+          } />
+
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  );
+}
