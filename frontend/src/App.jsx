@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 
 import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
 import AdminDashboard from "./pages/dashboards/AdminDashboard.jsx";
 import ClientDashboard from "./pages/dashboards/ClientDashboard.jsx";
 import ProviderDashboard from "./pages/dashboards/ProviderDashboard.jsx";
@@ -28,6 +29,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomeRedirect/>} />
           <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Register/>} />
 
           <Route path="/client" element={
             <ProtectedRoute roles={["client"]}><ClientDashboard/></ProtectedRoute>
@@ -44,6 +46,9 @@ export default function App() {
           } />
           <Route path="/provider/requests" element={
             <ProtectedRoute roles={["provider"]}><IncomingRequests/></ProtectedRoute>
+          } />
+          <Route path="/provider/conversations" element={
+            <ProtectedRoute roles={["provider"]}><Conversations/></ProtectedRoute>
           } />
 
           <Route path="/admin" element={

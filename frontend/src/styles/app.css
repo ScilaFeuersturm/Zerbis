@@ -1,0 +1,7 @@
+/* Extra global helpers (theme is in theme.css) */
+
+hr { opacity: .8; }
+
+textarea.input { font-family: inherit; }
+
+.card .card { box-shadow: none; }

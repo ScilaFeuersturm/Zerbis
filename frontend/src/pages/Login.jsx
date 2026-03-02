@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { http } from "../api/http.js";
 import { useAuth } from "../context/AuthContext.jsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -33,6 +33,7 @@ export default function Login() {
           <input className="input" placeholder="Password" type="password" value={password} onChange={e=>setPassword(e.target.value)} />
           {err && <div style={{color:"var(--danger)"}}>{err}</div>}
           <button className="btn" type="submit">Entrar</button>
+          <div className="muted">¿No tenés cuenta? <Link to="/register" style={{textDecoration:"underline"}}>Crear cuenta</Link></div>
         </form>
       </div>
     </div>
