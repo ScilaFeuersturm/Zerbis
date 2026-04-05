@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { http } from "../../api/http.js";
 import { useAuth } from "../../context/AuthContext.jsx";
 import SwipeCard from "../../components/SwipeCard.jsx";
+import Navbar from "../../components/Navbar.jsx";
 
 export default function DiscoverProviders(){
   const { token } = useAuth();
@@ -35,6 +36,8 @@ export default function DiscoverProviders(){
   function skip(){ setI(i+1); }
 
   return (
+    <>
+    <Navbar />
     <div className="container" style={{maxWidth:720}}>
       <h2>Descubrir prestadores</h2>
       <p className="muted">Buscá, encontrá match y chateá adentro de Zerbis.</p>
@@ -59,5 +62,6 @@ export default function DiscoverProviders(){
         <SwipeCard provider={current} onLike={like} onSkip={skip} />
       )}
     </div>
+    </>
   );
 }

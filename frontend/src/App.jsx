@@ -8,7 +8,6 @@ import Register from "./pages/Register.jsx";
 import AdminDashboard from "./pages/dashboards/AdminDashboard.jsx";
 import ClientDashboard from "./pages/dashboards/ClientDashboard.jsx";
 import ProviderDashboard from "./pages/dashboards/ProviderDashboard.jsx";
-import DiscoverProviders from "./pages/client/DiscoverProviders.jsx";
 import Conversations from "./pages/client/Conversations.jsx";
 import IncomingRequests from "./pages/provider/IncomingRequests.jsx";
 import UsersModeration from "./pages/admin/UsersModeration.jsx";
@@ -34,9 +33,7 @@ export default function App() {
           <Route path="/client" element={
             <ProtectedRoute roles={["client"]}><ClientDashboard/></ProtectedRoute>
           } />
-          <Route path="/client/discover" element={
-            <ProtectedRoute roles={["client"]}><DiscoverProviders/></ProtectedRoute>
-          } />
+          <Route path="/client/discover" element={<Navigate to="/client" replace />} />
           <Route path="/client/conversations" element={
             <ProtectedRoute roles={["client"]}><Conversations/></ProtectedRoute>
           } />

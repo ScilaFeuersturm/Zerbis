@@ -3,6 +3,13 @@ import Navbar from "../../components/Navbar.jsx";
 import { http } from "../../api/http.js";
 import { useAuth } from "../../context/AuthContext.jsx";
 
+const STATUS_LABELS = {
+  pending:  "Pendiente",
+  accepted: "Aceptado",
+  rejected: "Rechazado",
+  closed:   "Cerrado",
+};
+
 export default function IncomingRequests(){
   const { token } = useAuth();
   const [rows, setRows] = useState([]);
@@ -40,13 +47,13 @@ export default function IncomingRequests(){
                 <div style={{display:"flex", justifyContent:"space-between", gap:12}}>
                   <div>
                     <div style={{fontWeight:800}}>{r.client_name}</div>
-                    <div className="muted" style={{fontSize:13}}>Estado: {r.status}</div>
+                    <div className="muted" style={{fontSize:13}}>Estado: {STATUS_LABELS[r.status] ?? r.status}</div>
                     <div style={{marginTop:8}}>{r.message || <span className="muted">Sin mensaje</span>}</div>
                   </div>
                   <div style={{display:"flex", gap:8, flexWrap:"wrap", alignItems:"flex-start", justifyContent:"flex-end"}}>
                     <button className="btn secondary" onClick={()=>setStatus(r.id,"accepted")}>Aceptar</button>
-                    <button className="btn" style={{background:"rgba(255,255,255,.10)"}} onClick={()=>setStatus(r.id,"rejected")}>Rechazar</button>
-                    <button className="btn" style={{background:"rgba(255,255,255,.10)"}} onClick={()=>setStatus(r.id,"closed")}>Cerrar</button>
+                    <button className="btn" style={{background:"var(--danger)", color:"#fff"}} onClick={()=>setStatus(r.id,"rejected")}>Rechazar</button>
+                    <button className="btn" style={{background:"var(--muted)", color:"#fff"}} onClick={()=>setStatus(r.id,"closed")}>Cerrar</button>
                   </div>
                 </div>
               </div>

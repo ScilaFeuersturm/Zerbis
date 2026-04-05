@@ -6,6 +6,31 @@ import { allowRoles } from "../middleware/role.js";
 export const conversationsRouter = Router();
 
 /**
+ * Unread count — conversaciones donde el último mensaje no fue enviado por mí
+ */
+conversationsRouter.get("/unread-count", auth, allowRoles("client", "provider"), async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const [[{ count }]] = await pool.query(
+      `SELECT COUNT(*) AS count
+       FROM conversations c
+       JOIN contact_requests cr ON cr.id = c.contact_request_id
+       JOIN messages m ON m.id = (
+         SELECT id FROM messages
+         WHERE conversation_id = c.id AND is_deleted = 0
+         ORDER BY created_at DESC LIMIT 1
+       )
+       WHERE (cr.client_id = ? OR cr.provider_id = ?)
+         AND m.sender_id != ?`,
+      [userId, userId, userId]
+    );
+    res.json({ count: Number(count) });
+  } catch (e) {
+    next(e);
+  }
+});
+
+/**
  * List conversations for current user (client/provider)
  */
 conversationsRouter.get("/", auth, allowRoles("client", "provider"), async (req, res, next) => {

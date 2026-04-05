@@ -50,6 +50,47 @@ CREATE TABLE categories (
   name VARCHAR(80) NOT NULL UNIQUE
 );
 
+INSERT INTO categories (name) VALUES
+  ('Electricidad'),
+  ('Gas y Calefacción'),
+  ('Plomería'),
+  ('Pintura'),
+  ('Albañilería'),
+  ('Carpintería'),
+  ('Cerrajería'),
+  ('Limpieza'),
+  ('Jardinería y Paisajismo'),
+  ('Mudanzas'),
+  ('Aire Acondicionado'),
+  ('Herrería'),
+  ('Techado e Impermeabilización'),
+  ('Redes y Computación'),
+  ('Diseño Gráfico'),
+  ('Costura y Modistería'),
+  ('Peluquería y Estética'),
+  ('Masajes y Bienestar'),
+  ('Catering y Cocina'),
+  ('Clases Particulares'),
+  ('Idiomas'),
+  ('Música y Arte'),
+  ('Contabilidad y Finanzas'),
+  ('Asesoría Legal'),
+  ('Psicología y Coaching'),
+  ('Fotografía y Video'),
+  ('Veterinaria a Domicilio'),
+  ('Cuidado de Niños'),
+  ('Cuidado de Adultos Mayores'),
+  ('Mecánica a Domicilio');
+
+-- Rubros del prestador (seleccionados en el registro, multi-categoría)
+CREATE TABLE provider_categories (
+  provider_id BIGINT NOT NULL,
+  category_id INT    NOT NULL,
+  PRIMARY KEY (provider_id, category_id),
+  FOREIGN KEY (provider_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+
 -- Servicios ofrecidos por prestadores (ABM)
 CREATE TABLE provider_services (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,

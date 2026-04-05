@@ -8,4 +8,5 @@ export const pool = mysql.createPool({
   database: config.db.database,
   waitForConnections: true,
   connectionLimit: 10,
+  charset: "utf8mb4",
 });

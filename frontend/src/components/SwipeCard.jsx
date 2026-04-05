@@ -17,7 +17,7 @@ export default function SwipeCard({ provider, onLike, onSkip }) {
       <p className="muted" style={{marginBottom:0}}>{provider.bio || "Sin descripción."}</p>
 
       <div className="row" style={{marginTop:14}}>
-        <button className="btn" type="button" onClick={onSkip} style={{background:"rgba(255,255,255,.10)"}}>
+        <button className="btn" type="button" onClick={onSkip} style={{background:"var(--muted)", color:"#fff"}}>
           Pasar
         </button>
         <button className="btn secondary" type="button" onClick={onLike}>

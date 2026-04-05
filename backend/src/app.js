@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 
 import { authRouter } from "./routes/auth.routes.js";
+import { categoriesRouter } from "./routes/categories.routes.js";
 import { providersRouter } from "./routes/providers.routes.js";
 import { contactRequestsRouter } from "./routes/contactRequests.routes.js";
 import { conversationsRouter } from "./routes/conversations.routes.js";
@@ -18,6 +19,7 @@ app.use(express.json());
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
 app.use("/api/auth", authRouter);
+app.use("/api/categories", categoriesRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/providers", providersRouter);
 app.use("/api/clients", clientsRouter);

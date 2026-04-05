@@ -13,12 +13,17 @@ async function getRoleIdByName(name) {
 }
 
 authRouter.post("/register", async (req, res) => {
-  const { role, fullName, email, phone, password, city, bio, headline } = req.body;
+  const { role, fullName, email, phone, password, city, bio, headline, categoryIds } = req.body;
 
   if (!["client", "provider"].includes(role)) {
     return res.status(400).json({ error: "Role must be client or provider" });
   }
   if (!email || !password || !fullName) return res.status(400).json({ error: "Missing fields" });
+
+  const cats = Array.isArray(categoryIds) ? categoryIds.map(Number).filter(Boolean) : [];
+  if (role === "provider" && cats.length === 0) {
+    return res.status(400).json({ error: "Seleccioná al menos un rubro" });
+  }
 
   const roleId = await getRoleIdByName(role);
   const passwordHash = await bcrypt.hash(password, 10);
@@ -43,13 +48,23 @@ authRouter.post("/register", async (req, res) => {
         "INSERT INTO provider_profiles(user_id, headline, bio, city) VALUES (?,?,?,?)",
         [userId, headline || null, bio || null, city || null]
       );
+      if (cats.length > 0) {
+        const values = cats.map(catId => [userId, catId]);
+        await conn.query("INSERT IGNORE INTO provider_categories(provider_id, category_id) VALUES ?", [values]);
+      }
     }
 
     await conn.commit();
     res.status(201).json({ ok: true });
   } catch (e) {
     await conn.rollback();
-    res.status(500).json({ error: "Register failed" });
+    console.error("[register]", e.message);
+    const msg = e.code === "ER_NO_SUCH_TABLE"
+      ? "Falta crear la tabla provider_categories. Ejecutá zerbis_workbench.sql en MySQL Workbench."
+      : e.code === "ER_DUP_ENTRY"
+      ? "Ya existe una cuenta con ese email."
+      : e.message;
+    res.status(500).json({ error: msg });
   } finally {
     conn.release();
   }

@@ -2,9 +2,15 @@ import { createContext, useContext, useMemo, useState } from "react";
 
 const AuthCtx = createContext(null);
 
+function decodeJwt(token) {
+  try { return JSON.parse(atob(token.split(".")[1])); } catch { return {}; }
+}
+
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [role, setRole] = useState(localStorage.getItem("role"));
+
+  const userId = token ? (decodeJwt(token).id ?? null) : null;
 
   const login = ({ token, role }) => {
     setToken(token); setRole(role);
@@ -18,7 +24,7 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("role");
   };
 
-  const value = useMemo(() => ({ token, role, login, logout }), [token, role]);
+  const value = useMemo(() => ({ token, role, userId, login, logout }), [token, role]);
   return <AuthCtx.Provider value={value}>{children}</AuthCtx.Provider>;
 }
 

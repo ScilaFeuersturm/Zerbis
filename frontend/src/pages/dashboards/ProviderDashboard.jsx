@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar.jsx";
 
 export default function ProviderDashboard(){
@@ -11,8 +12,8 @@ export default function ProviderDashboard(){
             Revisá pedidos entrantes y respondé por mensajería interna.
           </p>
           <div className="row">
-            <a className="btn secondary" href="/provider/requests">Ver pedidos</a>
-            <a className="btn" href="/provider/conversations">Chats</a>
+            <Link className="btn secondary" to="/provider/requests">Ver pedidos</Link>
+            <Link className="btn" to="/provider/conversations">Chats</Link>
           </div>
         </div>
       </div>
