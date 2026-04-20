@@ -1,0 +1,86 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: #1b1b1b;
+  background-color: #f4f6fb;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+}
+
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  gap: 20px;
+}
+
+.hero {
+  background: linear-gradient(120deg, #1046a3, #2f80ed);
+  color: #fff;
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(16, 70, 163, 0.08);
+}
+
+.form-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+}
+
+input, select, textarea, button {
+  border: 1px solid #d2d9e9;
+  border-radius: 8px;
+  padding: 10px;
+  font: inherit;
+}
+
+button {
+  background: #1046a3;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.grid {
+  display: grid;
+  gap: 14px;
+}
+
+.provider-card {
+  border: 1px solid #e4e8f3;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.provider-card h4 {
+  margin-bottom: 8px;
+}
