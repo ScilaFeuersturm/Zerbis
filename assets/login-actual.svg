@@ -1,0 +1,22 @@
+<svg width="1366" height="768" viewBox="0 0 1366 768" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1366" height="768" fill="#F4F6FB"/>
+  <circle cx="170" cy="210" r="360" fill="#E9EFFF"/>
+  <circle cx="320" cy="280" r="320" fill="#DFE8FF"/>
+  <circle cx="480" cy="360" r="280" fill="#D3E0FF"/>
+
+  <rect x="430" y="140" width="506" height="488" rx="24" fill="white" stroke="#E5E7EB" stroke-width="2"/>
+
+  <text x="500" y="220" font-family="Arial, sans-serif" font-size="48" font-weight="700" fill="#111827">Login</text>
+  <text x="500" y="260" font-family="Arial, sans-serif" font-size="18" fill="#6B7280">Así se ve actualmente (referencia estática)</text>
+
+  <text x="500" y="325" font-family="Arial, sans-serif" font-size="22" fill="#374151">Correo electrónico</text>
+  <rect x="500" y="345" width="366" height="60" rx="10" fill="#FAFAFA" stroke="#D1D5DB" stroke-width="2"/>
+  <text x="520" y="382" font-family="Arial, sans-serif" font-size="24" fill="#9CA3AF">usuario@empresa.com</text>
+
+  <text x="500" y="440" font-family="Arial, sans-serif" font-size="22" fill="#374151">Contraseña</text>
+  <rect x="500" y="460" width="366" height="60" rx="10" fill="#FAFAFA" stroke="#D1D5DB" stroke-width="2"/>
+  <text x="520" y="497" font-family="Arial, sans-serif" font-size="24" fill="#9CA3AF">••••••••••••</text>
+
+  <rect x="500" y="545" width="366" height="60" rx="12" fill="#2563EB"/>
+  <text x="610" y="583" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="white">Iniciar sesión</text>
+</svg>
